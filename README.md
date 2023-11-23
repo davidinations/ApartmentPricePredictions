@@ -6,3 +6,5 @@ Predicting The Rent Price From Apartment is not easy task to do. So When I Have 
 I will use that data for predict Rent Price With Gradient Boosting Regressor Model.
 ### _How To Test The Model_
 There is Folder Name Src run that **app.py** file (You still need to download python, maybe another type in the future).
+### Information
+This Project Mostly Use Indonesian Language
