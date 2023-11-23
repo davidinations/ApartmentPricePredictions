@@ -7,7 +7,7 @@ from typing import List
 from Requirement import HandleOutlier, AgeBinner, AgeTransformer, ColumnDropper
 
 # Load All Data Cleaned
-data = pd.read_csv('D:\\david\\OneDrive\\Documents\\Future\\Project\\Application\\Education\\Purwadhika\\Capstone\\ApartmentData\\Notebook\\data_daegu_apartment_preparation_cleaned.csv')
+data = pd.read_csv('../data/data_daegu_apartment_preparation_cleaned.csv')
 data.to_dict(orient='records')
 
 app = FastAPI(
@@ -53,7 +53,7 @@ payload = {
 }
 
 # Loading the saved model
-model = pickle.load(open('D:\\david\\OneDrive\\Documents\\Future\\Project\\Application\\Education\\Purwadhika\\Capstone\\ApartmentData\\Notebook\\gbr_finalmodel.sav', 'rb'))
+model = pickle.load(open('../model/gbr_finalmodel.sav', 'rb'))
 
 class Item(BaseModel):
     data: List[PricePredictions]
