@@ -4,11 +4,10 @@ import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
+from pycaret.regression import *
 from Requirement import HandleOutlier, AgeBinner, AgeTransformer, ColumnDropper
 
 # Load All Data Cleaned
-data = pd.read_csv('../data/data_daegu_apartment_preparation_cleaned.csv')
-data.to_dict(orient='records')
 
 app = FastAPI(
     title="Apartment Prediction API", 
@@ -17,49 +16,46 @@ app = FastAPI(
 
 # Definisikan struktur data input menggunakan Pydantic
 class PricePredictions(BaseModel):
-    HallwayType: str
-    TimeToSubway: str
-    SubwayStation: str
+    HallwayType: object
+    TimeToSubway: object
+    SubwayStation: object
     N_FacilitiesNearBy_ETC: float
     N_FacilitiesNearBy_PublicOffice: float
     N_SchoolNearBy_University: float
     N_Parkinglot_Basement: float
     YearBuilt: int
     N_FacilitiesInApt: int
-    Size_sqf: int
+    Size(sqf): int
     SalePrice: int
 
 # Define a Python class to create a list to reformat the data
 class Item(BaseModel):
     data: List[PricePredictions]
 
-# define data
-payload = {
-    "data": [
-    {
-    'HallwayType': 'terraced',
-    'TimeToSubway': '0-5min',
-    'SubwayStation': 'Banwoldang',
-    'N_FacilitiesNearBy(ETC)': 0.0,
-    'N_FacilitiesNearBy(PublicOffice)': 4.0,
-    'N_SchoolNearBy(University)': 1.0,
-    'N_Parkinglot(Basement)': 605.0,
-    'YearBuilt': 2007,
-    'N_FacilitiesInApt': 5,
-    'Size(sqf)': 1334,
-    'SalePrice': 357522
-    },
-    ],
-}
+# # define data
+# payload = {
+#     "data": [
+#     {
+#     'HallwayType': 'terraced',
+#     'TimeToSubway': '0-5min',
+#     'SubwayStation': 'Banwoldang',
+#     'N_FacilitiesNearBy(ETC)': 0.0,
+#     'N_FacilitiesNearBy(PublicOffice)': 4.0,
+#     'N_SchoolNearBy(University)': 1.0,
+#     'N_Parkinglot(Basement)': 605.0,
+#     'YearBuilt': 2007,
+#     'N_FacilitiesInApt': 5,
+#     'Size(sqf)': 1334,
+#     'SalePrice': 357522
+#     },
+#     ],
+# }
 
 # Loading the saved model
-model = pickle.load(open('../model/gbr_finalmodel.sav', 'rb'))
-
-class Item(BaseModel):
-    data: List[PricePredictions]
+model = load_model('model/final_model') 
 
 # Create a POST endpoint to make prediction
-@app.post('/')
+@app.post('/prediction')
 async def diabetes_prediction(parameters: Item):
     # Get inputs
     req = parameters.dict()['data']
@@ -68,7 +64,7 @@ async def diabetes_prediction(parameters: Item):
     data = pd.DataFrame(req)
 
     # Make the predictions
-    res = model.predict(data).tolist()
+    res = predict_model(estimator=model, data=data).tolist()
     
     return {"Request": req, "Response": res}
 
