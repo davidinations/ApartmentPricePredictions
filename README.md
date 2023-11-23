@@ -1,3 +1,3 @@
 # ApartmentPricePredictions
 <hr>
-### _Introduction_
+### **Introduction**
