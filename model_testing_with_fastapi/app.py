@@ -4,17 +4,19 @@ import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
-from pycaret.regression import *
-from Requirement import HandleOutlier, AgeBinner, AgeTransformer, ColumnDropper
+from pycaret.regression import load_model, predict_model
+import Requirement as Requirement
 
 # Load All Data Cleaned
 
 app = FastAPI(
-    title="Apartment Prediction API", 
+    title="Apartment Prediction API",
     version="v1.0.0"
 )
 
 # Definisikan struktur data input menggunakan Pydantic
+
+
 class PricePredictions(BaseModel):
     HallwayType: object
     TimeToSubway: object
@@ -29,6 +31,8 @@ class PricePredictions(BaseModel):
     SalePrice: int
 
 # Define a Python class to create a list to reformat the data
+
+
 class Item(BaseModel):
     data: List[PricePredictions]
 
@@ -51,10 +55,13 @@ class Item(BaseModel):
 #     ],
 # }
 
+
 # Loading the saved model
-model = load_model('model/final_model') 
+model = load_model('model/final_model')
 
 # Create a POST endpoint to make prediction
+
+
 @app.post('/prediction')
 async def diabetes_prediction(parameters: Item):
     # Get inputs
@@ -65,7 +72,7 @@ async def diabetes_prediction(parameters: Item):
 
     # Make the predictions
     res = predict_model(estimator=model, data=data).tolist()
-    
+
     return {"Request": req, "Response": res}
 
 if __name__ == '__main__':

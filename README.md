@@ -1,10 +1,33 @@
-# ApartmentPricePredictions
+# Apartment Price Predictions (South Korea Daegu Won Price)
+
 ### _Introduction_
-This is About Making Machine Learning Prediction With Regression Model
-### _Context_
-Predicting The Rent Price From Apartment is not easy task to do. So When I Have Some Data Based On Daegu Korea<br>
-I will use that data for predict Rent Price With Gradient Boosting Regressor Model.
-### _How To Test The Model_
-There is Folder Name Src run that **app.py** file (You still need to download python, maybe another type in the future).
-### Information
-This Project Mostly Use Indonesian Language
+
+This Is Implementation Model For Predicting Apartment Price In South Korea In Won Price With Python And Its Implementation Inside A Notebook Folder.
+
+### _How To Try Manually_
+
+1. Install Python 3.9 - 3.11
+2. Clone The Directory
+3. Create python virtual environment inside the directory
+4. Run
+
+   ```Shell
+   pip install -r requirements.txt
+   ```
+
+   inside virtual environment
+
+5. Run
+
+   ```Shell
+   python model_testing_with_streamlit/app.py
+   ```
+
+**_TO DO_**
+
+- Show The Result Of The Model Outside Of Notebook So It Can Summary The Model Perfomance Here
+- Create Streamlit Version To Test The Result (Completed)
+- Deploy Streamlit As Share So Other People Can See It
+- Fix FastAPI Model So It Can Run Perfectly
+- Make A Docker So Other Developer Can Modify The Project Easily Without Maintaining The Environment Hell
+- Link The Streamlit Into My Portofolio
