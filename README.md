@@ -1,4 +1,4 @@
-# Apartment Price Predictions\ (South Korea Daegu Won Price)
+## Apartment Price Predictions (South Korea Daegu Won Price)
 
 ### _Introduction_
 
