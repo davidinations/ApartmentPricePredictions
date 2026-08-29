@@ -6,7 +6,7 @@ This Is Implementation Model For Predicting Apartment Price In South Korea In Wo
 
 ### _Demo App_
 
-[davidinations.streamlit.app](https://davidinations-regression.streamlit.app/)
+[davidinations-regression.streamlit.app](https://davidinations-regression.streamlit.app/)
 
 ### _How To Try Manually_
 
